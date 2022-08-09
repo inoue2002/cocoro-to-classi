@@ -1,3 +1,6 @@
+<script setup>
+useNuxtApp().$test()
+</script>
 <template>
   <div>
     <div>
