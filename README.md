@@ -1,3 +1,23 @@
+# これはなに
+ 
+- nuxt3+Tailwind+Firebase+Vercelのテンプレートです
+
+
+# 環境構築
+
+```
+    $ git clone 
+    $ cd nuxt3-tailwind-Firebase
+    $ firebase projects:create 
+    # 作成したpjからマイアプリを作成し、configをenvに記録
+    $ firebse deploy
+
+    vercel にてアプリを作成し、リポジトリと連携する
+
+    .vercel/output を公開する
+```
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
