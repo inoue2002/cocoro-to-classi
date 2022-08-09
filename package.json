@@ -4,11 +4,17 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "format": "prettier --write . --ignore-path .gitignore",
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "fix": "npm run format && npm run lint"
   },
   "devDependencies": {
+    "@nuxtjs/eslint-config": "^10.0.0",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/tailwindcss": "^5.3.1",
     "autoprefixer": "^10.4.8",
+    "eslint-config-prettier": "^8.5.0",
     "nuxt": "3.0.0-rc.6",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
