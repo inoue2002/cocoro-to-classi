@@ -12,6 +12,7 @@ export const useAuth = () => {
       const auth = getAuth();
       return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+          // eslint-disable-next-line no-console
           console.log({ userCredential });
           userCredential.user
             .getIdToken()
