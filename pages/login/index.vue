@@ -69,7 +69,6 @@ const login = async () => {
                 v-model="email"
                 type="email"
                 name="email"
-                :class="{ 'border-red-500': emailFlag }"
                 class="
                   bg-gray-50
                   border
@@ -95,7 +94,6 @@ const login = async () => {
               <input
                 id="password"
                 v-model="password"
-                :class="{ 'border-red-500': passwordFlag }"
                 type="password"
                 name="password"
                 placeholder="••••••••"
