@@ -1,23 +1,23 @@
-import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
-} from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
 
+interface LoginUser {
+  uid: string;
+  token: string;
+}
 export const useAuth = () => {
-  const token = useState<string>("token", () => null);
+  const loginUser = useState<LoginUser>('loginUser', () => null);
   async function signIn(email: string, password: string) {
     return await new Promise<void>((resolve, reject) => {
       const auth = getAuth();
       return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // eslint-disable-next-line no-console
-          console.log({ userCredential });
           userCredential.user
             .getIdToken()
             .then((idToken) => {
-              token.value = idToken;
+              loginUser.value = {
+                token: idToken,
+                uid: userCredential.user.uid,
+              };
               resolve();
             })
             .catch(reject);
@@ -31,7 +31,10 @@ export const useAuth = () => {
       const auth = getAuth();
       firebaseSignOut(auth)
         .then(() => {
-          token.value = null;
+          loginUser.value = {
+            token: null,
+            uid: null,
+          };
           resolve();
         })
         .catch((error) => {
@@ -52,12 +55,15 @@ export const useAuth = () => {
             user
               .getIdToken()
               .then((idtoken) => {
-                token.value = idtoken;
+                loginUser.value = {
+                  token : idtoken,
+                  uid : user.uid
+                }
                 resolve();
               })
               .catch(reject);
           } else {
-            token.value = null;
+            loginUser.value = null
             resolve();
           }
         },
@@ -71,7 +77,7 @@ export const useAuth = () => {
   return {
     signIn,
     signOut,
-    token,
     checkAuthState,
+    loginUser
   };
 };

@@ -3,11 +3,11 @@ import { defineNuxtPlugin } from "#app";
 export default defineNuxtPlugin(() => ({
   provide: {
     async existCurrentUser() {
-      const { checkAuthState, token } = useAuth();
+      const { checkAuthState, loginUser} = useAuth();
       await checkAuthState();
       // eslint-disable-next-line no-console
       console.log("ログインしているか確認します");
-      if (!token.value) {
+      if (!loginUser.value.token) {
         // eslint-disable-next-line no-console
         console.log("まだログインしていません");
         useRouter().push("/login");
