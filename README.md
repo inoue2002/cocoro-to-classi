@@ -12,7 +12,7 @@
     $ firebse deploy
 
     vercel にてアプリを作成し、リポジトリと連携する
-
+    command :  npm run build
     .vercel/output を公開する
 ```
 
