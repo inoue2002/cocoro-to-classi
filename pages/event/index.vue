@@ -1,12 +1,12 @@
 <script setup>
 onMounted(async () => {
-  // ユーザーがログインしていない場合はログインページへ遷移
+  // すでにログインしている場合はログイン後のページを表示する
   await useNuxtApp().$existCurrentUser();
 });
 
 const logOut = async () => {
   await useAuth().signOut();
-  useRouter().push('/login');
+  useRouter().push("/login");
 };
 </script>
 <template>
