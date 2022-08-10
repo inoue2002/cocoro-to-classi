@@ -7,7 +7,7 @@ export default defineNuxtPlugin(() => ({
       await checkAuthState();
       // eslint-disable-next-line no-console
       console.log("ログインしているか確認します");
-      if (!loginUser.value.token) {
+      if (!loginUser.value) {
         // eslint-disable-next-line no-console
         console.log("まだログインしていません");
         useRouter().push("/login");

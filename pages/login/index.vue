@@ -16,17 +16,20 @@ const login = async () => {
 
   try {
     // eslint-disable-next-line no-console
-    console.log('ログイン前', useAuth().loginUser.value.token);
+    //  useAuth().loginUser.valueがnullの時にtokenを呼び出そうとするとエラーがでる
+    // console.log('ログイン前', useAuth().loginUser.value.token);
     await useAuth().signIn(email.value, password.value);
     // eslint-disable-next-line no-console
-    console.log('ログイン後', useAuth().loginUser.value.token);
-    if (useAuth().loginUser.value.token != null) {
+    console.log(useAuth().loginUser);
+    // console.log('ログイン後', useAuth().loginUser.value.token);
+    if (useAuth().loginUser.value != null) {
       // eslint-disable-next-line no-console
       console.log('ログイン成功');
       router.push('/event');
     }
   } catch (error) {
-    alert('メールアドレス・パスワードが違います。');
+    console.log(error);
+    // alert('メールアドレス・パスワードが違います。');
   }
 };
 </script>
