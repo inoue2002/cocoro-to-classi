@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from 'nuxt';
+import { defineNuxtConfig } from "nuxt";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -12,9 +12,9 @@ export default defineNuxtConfig({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
   },
   nitro: {
-    preset: 'vercel',
+    preset: "vercel",
   },
-  css: ['@/assets/css/tailwind.css'],
+  css: ["@/assets/css/tailwind.css"],
   // 参考:https://std9.jp/articles/01fq14pxsp4r6nbyzp2txj46ac
   build: {
     postcss: {

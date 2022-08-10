@@ -1,9 +1,9 @@
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin } from "#app";
 
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 
 export default defineNuxtPlugin(() => {
-  useState('firebaseApp', () => {
+  useState("firebaseApp", () => {
     const config = useRuntimeConfig();
     const firebaseConfig = {
       apiKey: config.FIREBASE_API_KEY,
@@ -14,7 +14,7 @@ export default defineNuxtPlugin(() => {
       appId: config.FIREBASE_APP_ID,
     };
     // eslint-disable-next-line no-console
-    console.log('検証用', { firebaseConfig });
+    console.log("検証用", { firebaseConfig });
     return initializeApp(firebaseConfig);
   });
 });

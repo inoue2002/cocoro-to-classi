@@ -1,7 +1,12 @@
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+} from "firebase/auth";
 
 export const useAuth = () => {
-  const token = useState<string>('token', () => null);
+  const token = useState<string>("token", () => null);
   async function signIn(email: string, password: string) {
     return await new Promise<void>((resolve, reject) => {
       const auth = getAuth();
