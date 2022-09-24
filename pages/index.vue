@@ -2,7 +2,6 @@
 // liff.Init()
 onMounted(async () => {
   await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
-  console.log(window.liff.getProfile());
 });
 </script>
 <template>
