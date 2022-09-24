@@ -2,6 +2,7 @@
   import { v4 as uuidv4 } from 'uuid';
 
   const URL_BASE = "https://liff.line.me/1657500508-Mvd69BKj/item?id=";
+  const doesOverwrite = ref(false);
   const isNFCAvailable = ref(false);
   const targetURL = ref("No ID");
   let reader = null;
@@ -16,6 +17,22 @@
     }
   })
 
+  const registerItem = () => {
+    const itemId = uuidv4()
+    targetURL.value = `${URL_BASE}${itemId}`;
+    try {
+      // 新しくタグに書き込む
+      reader.write({
+        records: [{ recordType: "url", data: targetURL.value }]
+      });
+      // データーベースに記録する
+      useNuxtApp().$registerCardId(itemId)
+    } catch(err) {
+      alert(err)
+      console.log(err);
+    }
+  }
+
   const NFCOnScan = async () => {
     console.log("scanning...");
     try {
@@ -29,20 +46,8 @@
     });
     reader.addEventListener("reading", ({message}) => {
       const firstRecord = message.records[0];
-      if (!firstRecord) {
-        const itemId = uuidv4()
-        targetURL.value = `${URL_BASE}${itemId}`;
-        try {
-          // 新しくタグに書き込む
-          reader.write({
-            records: [{ recordType: "url", data: targetURL.value }]
-          });
-          // データーベースに記録する
-          useNuxtApp().$registerCardId(itemId)
-        } catch(err) {
-          alert(err)
-          console.log(err);
-        }
+      if (!firstRecord || doesOverwrite.value) {
+        registerItem();
         return;
       }
       const dataView: DataView = firstRecord.data;
@@ -55,6 +60,7 @@
 
 <template>
   <div class="root">
+    <button @click="() => { doesOverwrite = !doesOverwrite }">上書き : {{doesOverwrite}}</button>
     <div>{{isNFCAvailable ? "Web NFC Available" : "Web FNC Unavailable"}}</div>
     <button class="givebirth" @click="NFCOnScan">タグにいのちを吹き込む</button>
     <div>Target URL: {{targetURL}}</div>
