@@ -22,7 +22,7 @@ const toScan = () => {
   <div>
     <div class="root">Hello</div>
 
-    <!-- 連続リーダーモード -->
+    <!-- 連続リーダーモード / ローカル or アンドロイド のみで表示される -->
     <button v-if="device === 'android' || NODE_ENV === 'development'" @click="toScan">連続リーダーモード</button>
   </div>
 </template>
