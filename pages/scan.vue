@@ -1,22 +1,33 @@
 <script setup lang="ts">
+import { Ref } from 'vue';
+
   const isNFCAvailable = ref(false);
+  const isSpeechSynthesis = ref(false);
   const decodedMessage = ref("No message has been decoded");
+  const uttr: Ref<SpeechSynthesisUtterance> = ref(null);
   // const serialNumber = ref(0);
   // const message = ref();
   let reader = null;
   onMounted(() => {
     console.log("Mounted");
-    try {
-      isNFCAvailable.value = "NDEFReader" in window;
-    } catch(err) {
-      console.log(err);
-    }
+    isNFCAvailable.value = "NDEFReader" in window;
+    isSpeechSynthesis.value = "speechSynthesis" in window;
+    uttr.value = new SpeechSynthesisUtterance();
+    uttr.value.lang = "ja-JP";
+    uttr.value.rate = 0.7;
+    uttr.value.pitch = 1;
+    document.getElementById("speak").click();
     try {
       reader = new NDEFReader();
     } catch(err) {
       console.log(err);
     }
-  })
+  });
+
+  const onSpeak = (message: string) => {
+    uttr.value.text = message;
+    window.speechSynthesis.speak(uttr.value);
+  };
 
   const NFCOnScan = async () => {
     console.log("scanning...");
@@ -27,7 +38,7 @@
     reader.addEventListener("reading", ({message}) => {
       const firstRecord = message.records[0];
       if (!firstRecord) {
-        throw new Error("The first record does not exist");
+        decodedMessage.value = "No message has been registered on the tag"
       }
       const dataView: DataView = firstRecord.data;
       const decoder: TextDecoder = new TextDecoder("utf-8");
@@ -39,7 +50,11 @@
 <template>
   <div class="root">
     <div>{{isNFCAvailable ? "Web NFC Availble" : "Web NFC Unavailable"}}</div>
-    <button class="scan" @click="NFCOnScan">Scan</button>
+    <div>{{isSpeechSynthesis ? "Web Speech API Availble" : "Web Speech API Unavailable"}}</div>
+    <div>
+      <button class="scan" @click="NFCOnScan">Scan</button>
+      <button id="speak" class="speak" @click="onSpeak('この服は棚の2段目にしまってね')">Speak Out</button>
+    </div>
     <div>Decoded: {{decodedMessage}}</div>
   </div>
 </template>
@@ -57,7 +72,7 @@ body, html {
   justify-content: center;
   align-items: center;
 }
-.scan {
+.scan, .speak {
   margin: 5px;
   padding: 10px;
   background: #eaeaea;
