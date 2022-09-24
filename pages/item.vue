@@ -6,6 +6,8 @@ import { LineUser } from '~/@types/lineUser';
 // パラメーターの取得
 const route = useRoute();
 
+const router = useRouter()
+
 // todo - エラーハンドリングをやる
 const itemId = route.query.id as string;
 
@@ -30,6 +32,7 @@ onMounted(async () => {
   }
   if (!itemData.register_at) {
     console.log('このタグはまだ登録されていません');
+    router.push('/register')
   } else {
     item.value = itemData;
     // eslint-disable-next-line no-useless-return
