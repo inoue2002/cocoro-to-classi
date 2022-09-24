@@ -34,6 +34,18 @@
     }
   }
 
+  const test = ()=>{
+    const itemId = uuidv4()
+    targetURL.value = `${URL_BASE}${itemId}`;
+    try {
+      // データーベースに記録する
+      useNuxtApp().$registerCardId(itemId)
+    } catch(err) {
+      alert(err)
+      console.log(err);
+    }
+  }
+
   const NFCOnScan = async () => {
     if (isReading) return;
     try {
@@ -67,6 +79,7 @@
     <div>{{isNFCAvailable ? "Web NFC Available" : "Web FNC Unavailable"}}</div>
     <button class="givebirth" @click="NFCOnScan">タグにいのちを吹き込む</button>
     <div>Target URL: {{targetURL}}</div>
+    <button @click="test">書き込みテストボタン</button>
   </div>
 </template>
 
