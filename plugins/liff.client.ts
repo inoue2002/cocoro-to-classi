@@ -5,18 +5,29 @@ import { LiffMockPlugin } from '@line/liff-mock';
 export default defineNuxtPlugin(() => ({
   provide: {
     async liffInit(liffId: string) {
+      console.log('初期化を始めます', liffId);
       try {
         // ローカル環境
         if (process.env.NODE_ENV === 'development') {
-          window.liff.use(new LiffMockPlugin());
+          (window as any).liff.use(new LiffMockPlugin());
           await (window as any).liff.init({ liffId, mock: true });
-          const user = window.liff.getProfile();
-          // eslint-disable-next-line no-console
-          console.log(user);
-          return user;
+          if (!(window as any).liff.isInClient()) {
+            (window as any).liff.login();
+          }
         } else {
-          // TODO - デプロイ後のinit処理を書く
+          // 本番環境
+          await (window as any).liff.init({
+            liffId,
+          });
+          if (!(window as any).liff.isInClient() && !(window as any).liff.isLoggedIn()) {
+            (window as any).liff.login({
+              redirectUri: window.location.href,
+            });
+          }
         }
+        const profile = await (window as any).liff.getProfile();
+        console.log(profile);
+        return profile;
       } catch (err) {
         // eslint-disable-next-line
         console.error(err);
