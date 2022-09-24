@@ -7,10 +7,16 @@ import { LineUser } from '~/@types/lineUser';
 const route = useRoute();
 
 // todo - エラーハンドリングをやる
-const itemId = route.query.id as string
+const itemId = route.query.id as string;
 
 const lineUser: Ref<LineUser> = ref();
 const item: Ref<Item> = ref();
+
+// todo - 優先度高 削除機能の実装
+
+// todo - 優先度低 情報のアップデート機能の実装
+
+// todo - 優先度中 一覧ページへ戻る機能の実装
 
 onMounted(async () => {
   lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
@@ -22,11 +28,13 @@ onMounted(async () => {
   <div>
     <div v-if="lineUser" class="root">こんにちは{{ lineUser.displayName }}さん</div>
     <div v-if="item">
-    {{item.name}}
-    {{item.init_at}}
-    {{item.register_at}}
-    {{item.message}}
-    {{item.authorUserId}}
+      <p>タイトル：{{ item.name }}</p>
+      <p>タグ初期化日： {{ item.init_at }}</p>
+      <p>タグ設定日： {{ item.register_at }}</p>
+      <p>メッセージ： {{ item.message }}</p>
+      <p>設定者： {{ item.authorUserId }}</p>
+
+      <img :src="item.imageUrl" alt="" />
     </div>
   </div>
 </template>
