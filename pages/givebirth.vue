@@ -36,13 +36,14 @@
 
   const NFCOnScan = async () => {
     if (isReading) return;
-    console.log("reading");
     try {
       await reader.scan();
     } catch(error){
       alert(error);
       console.log(error)
     }
+    console.log("reading...");
+    isReading = true;
     reader.addEventListener("error", () => {
       console.log("Error");
     });
