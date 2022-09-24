@@ -1,3 +1,5 @@
+import { LineUser } from './lineUser';
+
 export interface Item {
   // アイテムの識別ID
   id: string;
@@ -11,6 +13,5 @@ export interface Item {
   imageUrl: string;
   // アイテムのメモ
   message: string;
-  // 設定したユーザーのUserId
-  authorUserId: string;
+  authorUser: LineUser;
 }

@@ -33,19 +33,22 @@ export default defineNuxtPlugin(() => ({
       console.log(new Date());
     },
     // ユーザーが初めてカードにアクセスした時、カードに設定情報を書き込む
-    async registerItem() {
-
-    },
+    async registerItem() {},
     // カードの情報を取得する（単一）
     getItem(itemId: string): Item {
-      const item = {
+      const item: Item = {
         id: String(itemId),
         init_at: new Date(),
         register_at: new Date(),
         name: 'シーツ',
         imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
         message: 'シーツは2階の棚の上',
-        authorUserId: '123456789',
+        authorUser: {
+          displayName: 'ようかん',
+          userId: 'zzzzzzzzzzz',
+          statusMessage: '元気です',
+          pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+        },
       };
       return item;
     },
@@ -60,7 +63,12 @@ export default defineNuxtPlugin(() => ({
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
-          authorUserId: '123456789',
+          authorUser: {
+            displayName: 'ようかん',
+            userId: 'zzzzzzzzzzz',
+            statusMessage: '元気です',
+            pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+          },
         },
         {
           id: 'test2',
@@ -69,7 +77,12 @@ export default defineNuxtPlugin(() => ({
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
-          authorUserId: '123456789',
+          authorUser: {
+            displayName: 'ようかん',
+            userId: 'zzzzzzzzzzz',
+            statusMessage: '元気です',
+            pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+          },
         },
         {
           id: 'test3',
@@ -78,7 +91,12 @@ export default defineNuxtPlugin(() => ({
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
-          authorUserId: '123456789',
+          authorUser: {
+            displayName: 'ようかん',
+            userId: 'zzzzzzzzzzz',
+            statusMessage: '元気です',
+            pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+          },
         },
       ];
       return itemList;

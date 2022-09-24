@@ -45,11 +45,12 @@ const onSpeak = (name: string, message: string) => {
   <div>
     <div v-if="lineUser" class="root">こんにちは{{ lineUser.displayName }}さん</div>
     <div v-if="item">
+      <p>id : {{ itemId }}</p>
       <p>タイトル：{{ item.name }}</p>
       <p>タグ初期化日： {{ item.init_at }}</p>
       <p>タグ設定日： {{ item.register_at }}</p>
       <p>メッセージ： {{ item.message }}</p>
-      <p>設定者： {{ item.authorUserId }}</p>
+      <p>設定者： {{ item.authorUser.displayName }}</p>
 
       <img :src="item.imageUrl" alt="" />
     </div>
