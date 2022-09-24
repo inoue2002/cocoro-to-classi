@@ -1,11 +1,16 @@
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+} from "firebase/auth";
 
 interface LoginUser {
   uid: string;
   token: string;
 }
 export const useAuth = () => {
-  const loginUser = useState<LoginUser>('loginUser', () => null);
+  const loginUser = useState<LoginUser>("loginUser", () => null);
   async function signIn(email: string, password: string) {
     return await new Promise<void>((resolve, reject) => {
       const auth = getAuth();
@@ -56,14 +61,14 @@ export const useAuth = () => {
               .getIdToken()
               .then((idtoken) => {
                 loginUser.value = {
-                  token : idtoken,
-                  uid : user.uid
-                }
+                  token: idtoken,
+                  uid: user.uid,
+                };
                 resolve();
               })
               .catch(reject);
           } else {
-            loginUser.value = null
+            loginUser.value = null;
             resolve();
           }
         },
@@ -78,6 +83,6 @@ export const useAuth = () => {
     signIn,
     signOut,
     checkAuthState,
-    loginUser
+    loginUser,
   };
 };

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Ref } from 'vue';
-import { Task } from '~~/@types/task';
+import { Ref } from "vue";
+import { Task } from "~~/@types/task";
 
 const tasks: Ref<Task[]> = ref([]);
 
-const name = ref('');
+const name = ref("");
 
 onMounted(async () => {
   // ユーザーがログインしていない場合はログインページへ遷移
@@ -15,15 +15,15 @@ onMounted(async () => {
 
 const logOut = async () => {
   await useAuth().signOut();
-  useRouter().push('/login');
+  useRouter().push("/login");
 };
 
 const addTask = async () => {
   try {
-    if (name.value === '') return;
+    if (name.value === "") return;
     const id = await useNuxtApp().$addTask(name.value);
     tasks.value.push({ name: name.value, id });
-    name.value = '';
+    name.value = "";
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e);
@@ -41,7 +41,12 @@ const addTask = async () => {
         {{ useAuth().loginUser }}
       </div>
 
-      <input v-model="name" type="text" placeholder="タスクの名前を入力" class="border" />
+      <input
+        v-model="name"
+        type="text"
+        placeholder="タスクの名前を入力"
+        class="border"
+      />
       <div @click="addTask()">タスクを追加</div>
       <div>
         <p class="text-3xl">タスク一覧</p>
