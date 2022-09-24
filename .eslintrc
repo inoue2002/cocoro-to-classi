@@ -17,6 +17,7 @@
   "rules": {
     "vue/multi-word-component-names": "off",
     "vue/max-attributes-per-line": "off",
+    "no-console": "off",
 
     // "semi": 0,
     // "quotes": [
