@@ -18,11 +18,28 @@ const item: Ref<Item> = ref();
 
 // todo - 優先度中 一覧ページへ戻る機能の実装
 
+let uttr: SpeechSynthesisUtterance = null;
+
 onMounted(async () => {
   lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
   // ユーザーが登録したデータを配列で取得（item[]）
   item.value = useNuxtApp().$getItem(itemId);
+  // eslint-disable-next-line no-useless-return
+  if (!("speechSynthesis" in window)) return;
+  uttr = new SpeechSynthesisUtterance();
+  uttr.lang = "ja-JP";
+  uttr.rate = 0.7;
+  uttr.pitch = 1;
 });
+
+const onSpeak = (name: string, message: string) => {
+  uttr.text = `このアイテムは${name}だよ。`;
+  window.speechSynthesis.speak(uttr);
+  uttr.text = `メモを読み上げるよ。`;
+  window.speechSynthesis.speak(uttr);
+  uttr.text = message;
+  window.speechSynthesis.speak(uttr);
+};
 </script>
 <template>
   <div>
@@ -36,6 +53,7 @@ onMounted(async () => {
 
       <img :src="item.imageUrl" alt="" />
     </div>
+    <button class="speak" @click="onSpeak(item.name, item.message)">読み上げる</button>
   </div>
 </template>
 

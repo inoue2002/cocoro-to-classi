@@ -23,7 +23,6 @@
     });
     reader.addEventListener("reading", ({message}) => {
       const firstRecord = message.records[0];
-      let targetId = "";
       if (!firstRecord) {
         targetURL.value = `${URL_BASE}${uuidv4()}`;
         try {
