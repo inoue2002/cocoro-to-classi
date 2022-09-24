@@ -59,10 +59,6 @@ import { Ref } from 'vue';
 </template>
 
 <style scoped>
-body, html {
-  width: 100vw;
-  height: 100vh;
-}
 .root {
   width: 100vw;
   height: 100vh;
@@ -70,11 +66,5 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.scan, .speak {
-  margin: 5px;
-  padding: 10px;
-  background: #eaeaea;
-  border-radius: 5px;
 }
 </style>

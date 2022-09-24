@@ -45,16 +45,12 @@
 <template>
   <div class="root">
     <div>{{isNFCAvailable ? "Web NFC Available" : "Web FNC Unavailable"}}</div>
-    <button class="givebirth" @click="NFCOnScan">Giving Birth</button>
+    <button class="givebirth" @click="NFCOnScan">タグにいのちを吹き込む</button>
     <div>Target URL: {{targetURL}}</div>
   </div>
 </template>
 
 <style scoped>
-body, html {
-  width: 100vw;
-  height: 100vh;
-}
 .root {
   width: 100vw;
   height: 100vh;
@@ -62,11 +58,5 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.givebirth {
-  margin: 5px;
-  padding: 10px;
-  background: #eaeaea;
-  border-radius: 5px;
 }
 </style>

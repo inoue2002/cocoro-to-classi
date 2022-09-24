@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'vercel',
   },
-  css: ['@/assets/css/tailwind.css'],
+  css: ['@/assets/css/tailwind.css', '@/assets/css/global.css',],
   // 参考:https://std9.jp/articles/01fq14pxsp4r6nbyzp2txj46ac
   build: {
     postcss: {

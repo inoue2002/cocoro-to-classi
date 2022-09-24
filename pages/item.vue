@@ -38,26 +38,37 @@ const onSpeak = (name: string, message: string) => {
 };
 </script>
 <template>
-  <div>
-    <div v-if="lineUser" class="root">こんにちは{{ lineUser.displayName }}さん</div>
+  <div class="root">
+    <h2 v-if="lineUser" class="displayName">こんにちは{{ lineUser.displayName }}さん</h2>
     <div v-if="item">
       <p>id : {{ itemId }}</p>
       <p>タイトル：{{ item.name }}</p>
-      <p>タグ初期化日： {{ item.init_at }}</p>
-      <p>タグ設定日： {{ item.register_at }}</p>
+      <p>タグ初期化日： {{ item.init_at.toLocaleDateString() }}</p>
+      <p>タグ設定日： {{ item.register_at.toLocaleDateString() }}</p>
       <p>メッセージ： {{ item.message }}</p>
       <p>設定者： {{ item.authorUser.displayName }}</p>
-
-      <img :src="item.imageUrl" alt="" />
+      <div class="img-container">
+        <img :src="item.imageUrl" alt="" width="250" />
+      </div>
     </div>
     <button class="speak" @click="onSpeak(item.name, item.message)">読み上げる</button>
   </div>
 </template>
 
 <style scoped>
-body,
-html {
-  width: 100vw;
-  height: 100vh;
-}
+  .root {
+    padding-top: 5vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .img-container {
+    width: 100%;
+    text-align: center;
+  }
+  img {
+    margin: 0 auto;
+    padding: 50px 0;
+  }
 </style>

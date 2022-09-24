@@ -1,6 +1,19 @@
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  font-weight: bold;
+  color: #333;
+}
+
 button {
   margin: 5px;
   padding: 10px;
-  background: #eaeaea;
+  background: #8fddcf;
   border-radius: 5px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
 }
