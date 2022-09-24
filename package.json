@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "HOST=0.0.0.0 PORT=3232 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "format": "prettier --write . --ignore-path .gitignore",
