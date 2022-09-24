@@ -29,7 +29,7 @@ export default defineNuxtPlugin(() => ({
     },
     // 書き込みリーダーで生成された乱数をDBに保存する
     // todo - asyncにする
-    registerCardId(userId: string) {
+    registerCardId(userId: string): Item[] {
       console.log(userId);
       const itemList: Item[] = [
         {
@@ -65,7 +65,18 @@ export default defineNuxtPlugin(() => ({
     // カードに設定情報を書き込む
     async registerItem() {},
     // カードの情報を取得する（単一）
-    async getItem() {},
+    getItem(itemId: string): Item {
+      const item = {
+        id: String(itemId),
+        init_at: new Date(),
+        register_at: new Date(),
+        name: 'シーツ',
+        imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+        message: 'シーツは2階の棚の上',
+        authorUserId: '123456789',
+      };
+      return item;
+    },
     // ユーザーの登録したカード情報を全て取得する（一覧）
     async getItemList() {},
     // カードの情報を初期化する
