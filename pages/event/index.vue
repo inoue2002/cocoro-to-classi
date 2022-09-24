@@ -8,14 +8,11 @@ const name = ref("");
 
 onMounted(async () => {
   // ユーザーがログインしていない場合はログインページへ遷移
-  await useNuxtApp().$existCurrentUser();
-
   tasks.value = await useNuxtApp().$getTask();
 });
 
 const logOut = async () => {
   await useAuth().signOut();
-  useRouter().push("/login");
 };
 
 const addTask = async () => {
