@@ -32,7 +32,7 @@ onMounted(async () => {
   }
   if (!itemData.register_at) {
     console.log('このタグはまだ登録されていません');
-    router.push('/register')
+    router.push(`/register?id=${itemId}`)
   } else {
     item.value = itemData;
     // eslint-disable-next-line no-useless-return
