@@ -33,7 +33,7 @@ export default defineNuxtPlugin(() => ({
       } catch (err) {
         // eslint-disable-next-line
         console.error(err);
-        return { userId: '0000000000000000', statusMessage: 'エラーが発生しました', displayName: 'Error' };
+        return { userId: '0000000000000000', statusMessage: 'エラーが発生しました', displayName: 'Error' , pictureUrl:'https://google.com' };
       }
     },
   },
