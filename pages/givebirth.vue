@@ -3,6 +3,7 @@
 
   const URL_BASE = "https://liff.line.me/1657500508-Mvd69BKj/item?id=";
   const doesOverwrite = ref(false);
+  let isReading = false;
   const isNFCAvailable = ref(false);
   const targetURL = ref("No ID");
   let reader = null;
@@ -34,7 +35,8 @@
   }
 
   const NFCOnScan = async () => {
-    console.log("scanning...");
+    if (isReading) return;
+    console.log("reading");
     try {
       await reader.scan();
     } catch(error){
