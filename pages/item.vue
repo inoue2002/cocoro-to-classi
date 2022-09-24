@@ -23,13 +23,22 @@ let uttr: SpeechSynthesisUtterance = null;
 onMounted(async () => {
   lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
   // ユーザーが登録したデータを配列で取得（item[]）
-  item.value = useNuxtApp().$getItem(itemId);
-  // eslint-disable-next-line no-useless-return
-  if (!("speechSynthesis" in window)) return;
-  uttr = new SpeechSynthesisUtterance();
-  uttr.lang = "ja-JP";
-  uttr.rate = 0.7;
-  uttr.pitch = 1;
+  const itemData = await useNuxtApp().$getItem(itemId);
+  if (itemData === undefined) {
+    console.log('このIDに該当するデータがありませんでした');
+    return;
+  }
+  if (!itemData.register_at) {
+    console.log('このタグはまだ登録されていません');
+  } else {
+    item.value = itemData;
+    // eslint-disable-next-line no-useless-return
+    if (!('speechSynthesis' in window)) return;
+    uttr = new SpeechSynthesisUtterance();
+    uttr.lang = 'ja-JP';
+    uttr.rate = 0.7;
+    uttr.pitch = 1;
+  }
 });
 
 const onSpeak = (name: string, message: string) => {
@@ -43,8 +52,8 @@ const onSpeak = (name: string, message: string) => {
     <div v-if="item">
       <p>id : {{ itemId }}</p>
       <p>タイトル：{{ item.name }}</p>
-      <p>タグ初期化日： {{ item.init_at.toLocaleDateString() }}</p>
-      <p>タグ設定日： {{ item.register_at.toLocaleDateString() }}</p>
+      <p>タグ初期化日： {{ item.init_at.toDate().toLocaleDateString() }}</p>
+      <p>タグ設定日： {{ item.register_at.toDate().toLocaleDateString() }}</p>
       <p>メッセージ： {{ item.message }}</p>
       <p>設定者： {{ item.authorUser.displayName }}</p>
       <div class="img-container">
@@ -56,19 +65,19 @@ const onSpeak = (name: string, message: string) => {
 </template>
 
 <style scoped>
-  .root {
-    padding-top: 5vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .img-container {
-    width: 100%;
-    text-align: center;
-  }
-  img {
-    margin: 0 auto;
-    padding: 50px 0;
-  }
+.root {
+  padding-top: 5vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img-container {
+  width: 100%;
+  text-align: center;
+}
+img {
+  margin: 0 auto;
+  padding: 50px 0;
+}
 </style>
