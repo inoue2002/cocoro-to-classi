@@ -16,7 +16,6 @@ import { Ref } from 'vue';
     uttr.value.lang = "ja-JP";
     uttr.value.rate = 0.7;
     uttr.value.pitch = 1;
-    document.getElementById("speak").click();
     try {
       reader = new NDEFReader();
     } catch(err) {

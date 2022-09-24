@@ -23,6 +23,7 @@
     "@line/liff": "^2.21.1",
     "@line/liff-mock": "^1.0.2",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "firebase": "^9.9.2"
+    "firebase": "^9.9.2",
+    "uuid": "^9.0.0"
   }
 }
