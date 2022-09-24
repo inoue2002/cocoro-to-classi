@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '#app';
 
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import { Task } from '~~/@types/task';
 
 import { Item } from '~/@types/item';
@@ -28,9 +28,13 @@ export default defineNuxtPlugin(() => ({
       return tasks;
     },
     // 初期化・書き込みリーダーで生成された乱数をDBに保存する(IDと日付)
-    registerCardId(itemId: string) {
-      console.log(itemId);
-      console.log(new Date());
+    async registerCardId(itemId: string) {
+      try {
+        await setDoc(doc(getFirestore(), 'items/', itemId), { init_at: new Date(), id: itemId });
+      } catch (error) {
+        alert(error)
+        throw new Error(error);
+      }
     },
     // ユーザーが初めてカードにアクセスした時、カードに設定情報を書き込む
     async registerItem() {},
