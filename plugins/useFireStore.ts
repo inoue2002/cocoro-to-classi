@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '#app';
 
-import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc, Timestamp } from 'firebase/firestore';
 import { Task } from '~~/@types/task';
 
 import { Item } from '~/@types/item';
@@ -32,38 +32,55 @@ export default defineNuxtPlugin(() => ({
       try {
         await setDoc(doc(getFirestore(), 'items/', itemId), { init_at: new Date(), id: itemId });
       } catch (error) {
-        alert(error)
+        alert(error);
         throw new Error(error);
       }
     },
     // ユーザーが初めてカードにアクセスした時、カードに設定情報を書き込む
     async registerItem() {},
     // カードの情報を取得する（単一）
-    getItem(itemId: string): Item {
-      const item: Item = {
-        id: String(itemId),
-        init_at: new Date(),
-        register_at: new Date(),
-        name: 'シーツ',
-        imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
-        message: 'シーツは2階の棚の上',
-        authorUser: {
-          displayName: 'ようかん',
-          userId: 'zzzzzzzzzzz',
-          statusMessage: '元気です',
-          pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
-        },
-      };
-      return item;
+    async getItem(itemId: string): Promise<Item> {
+      const docRef = doc(getFirestore(), 'items', itemId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data());
+        return docSnap.data() as Item;
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+        return undefined;
+      }
+      // const item: Item = {
+      //   id: String(itemId),
+      //   init_at: new Date(),
+      //   register_at: new Date(),
+      //   name: 'シーツ',
+      //   imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+      //   message: 'シーツは2階の棚の上',
+      //   authorUser: {
+      //     displayName: 'ようかん',
+      //     userId: 'zzzzzzzzzzz',
+      //     statusMessage: '元気です',
+      //     pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+      //   },
+      // };
     },
     // ユーザーの登録したカード情報を全て取得する（一覧）
     getItemList(userId: string): Item[] {
+      // const tasks: Task[] = [];
+      // const snapShots = await getDocs(collection(getFirestore(), 'items'));
+      // snapShots.forEach((s) => {
+      //   // なんらかの処理
+      //   const task = s.data();
+      //   tasks.push({ name: task.name, id: s.id });
+      // });
+
       console.log(userId);
       const itemList: Item[] = [
         {
           id: 'test1',
-          init_at: new Date(),
-          register_at: new Date(),
+          init_at: Timestamp.fromDate(new Date()),
+          register_at: Timestamp.fromDate(new Date()),
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
@@ -76,8 +93,8 @@ export default defineNuxtPlugin(() => ({
         },
         {
           id: 'test2',
-          init_at: new Date(),
-          register_at: new Date(),
+          init_at: Timestamp.fromDate(new Date()),
+          register_at: Timestamp.fromDate(new Date()),
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
@@ -90,8 +107,8 @@ export default defineNuxtPlugin(() => ({
         },
         {
           id: 'test3',
-          init_at: new Date(),
-          register_at: new Date(),
+          init_at: Timestamp.fromDate(new Date()),
+          register_at: Timestamp.fromDate(new Date()),
           name: 'シーツ',
           imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
           message: 'シーツは2階の棚の上',
