@@ -27,7 +27,9 @@
       if (!firstRecord) {
         targetURL.value = `${URL_BASE}${uuidv4()}`;
         try {
-          reader.write(targetURL.value);
+          reader.write({
+            records: [{ recordType: "url", data: targetURL.value }]
+          });
         } catch(err) {
           console.log(err);
         }
