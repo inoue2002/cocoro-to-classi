@@ -2,20 +2,35 @@
   const isNFCAvailable = ref(false);
   // const serialNumber = ref(0);
   // const message = ref();
-  onMounted(async () => {
-    isNFCAvailable.value = "NDEFReader" in window;
-    if (!isNFCAvailable.value) return;
-    const reader = new NDEFReader();
+  let reader = null;
+  onMounted(() => {
+    console.log("Mounted");
+    try {
+      isNFCAvailable.value = "NDEFReader" in window;
+    } catch(err) {
+      console.log(err);
+    }
+    try {
+      reader = new NDEFReader();
+    } catch(err) {
+      console.log(err);
+    }
+  })
+
+  const NFCOnScan = async () => {
+    console.log("scanning...");
     await reader.scan();
     reader.addEventListener("error", () => {
-      console.log("error");
+      console.log("Error");
     });
     reader.addEventListener("reading", (event) => {
       console.log(event);
     })
-  });
+  }
 </script>
 <template>
-  <div>{{isNFCAvailable ? "Web NFC Availble" : "Web NFC Unavailable"}}</div>
-
+  <div>
+    <div>{{isNFCAvailable ? "Web NFC Availble" : "Web NFC Unavailable"}}</div>
+    <button @click="NFCOnScan">Scan</button>
+  </div>
 </template>
