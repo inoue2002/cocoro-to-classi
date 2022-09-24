@@ -5,7 +5,7 @@ export interface Item {
   // アイテムの識別ID
   id: string;
   // 初期化された日付
-  init_at: Timestamp;
+  init_at?: Timestamp;
   // 設定された日付
   register_at: Timestamp;
   // アイテムの名前
