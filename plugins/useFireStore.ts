@@ -27,9 +27,30 @@ export default defineNuxtPlugin(() => ({
       });
       return tasks;
     },
-    // 書き込みリーダーで生成された乱数をDBに保存する
-    // todo - asyncにする
-    registerCardId(userId: string): Item[] {
+    // 初期化・書き込みリーダーで生成された乱数をDBに保存する(IDと日付)
+    registerCardId(itemId: string) {
+      console.log(itemId);
+      console.log(new Date());
+    },
+    // ユーザーが初めてカードにアクセスした時、カードに設定情報を書き込む
+    async registerItem() {
+
+    },
+    // カードの情報を取得する（単一）
+    getItem(itemId: string): Item {
+      const item = {
+        id: String(itemId),
+        init_at: new Date(),
+        register_at: new Date(),
+        name: 'シーツ',
+        imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
+        message: 'シーツは2階の棚の上',
+        authorUserId: '123456789',
+      };
+      return item;
+    },
+    // ユーザーの登録したカード情報を全て取得する（一覧）
+    getItemList(userId: string): Item[] {
       console.log(userId);
       const itemList: Item[] = [
         {
@@ -62,23 +83,6 @@ export default defineNuxtPlugin(() => ({
       ];
       return itemList;
     },
-    // カードに設定情報を書き込む
-    async registerItem() {},
-    // カードの情報を取得する（単一）
-    getItem(itemId: string): Item {
-      const item = {
-        id: String(itemId),
-        init_at: new Date(),
-        register_at: new Date(),
-        name: 'シーツ',
-        imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
-        message: 'シーツは2階の棚の上',
-        authorUserId: '123456789',
-      };
-      return item;
-    },
-    // ユーザーの登録したカード情報を全て取得する（一覧）
-    async getItemList() {},
     // カードの情報を初期化する
     async deleteItem() {},
   },

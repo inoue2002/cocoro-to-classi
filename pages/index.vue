@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-named-as-default
-
 import { Ref } from 'vue';
 import { Item } from '~/@types/item';
 import { LineUser } from '~~/@types/lineUser';
@@ -18,7 +16,7 @@ onMounted(async () => {
   device.value = (window as any).liff.getOS();
   lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
   // ユーザーが登録したデータを配列で取得（item[]）
-  itemList.value = useNuxtApp().$registerCardId(lineUser.value.userId);
+  itemList.value = useNuxtApp().$getItemList(lineUser.value.userId);
 });
 
 const toScan = () => {
