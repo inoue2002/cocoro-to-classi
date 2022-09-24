@@ -1,7 +1,7 @@
 // import { initializeApp, getApp } from "firebase/app";
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 // import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
-import { useRuntimeConfig } from '#app';
+import { useRuntimeConfig } from "#app";
 
 export default defineNuxtRouteMiddleware(() => {
   const config = useRuntimeConfig();
