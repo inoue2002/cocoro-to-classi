@@ -1,15 +1,15 @@
 import { defineNuxtPlugin } from '#app';
 
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, Timestamp, updateDoc } from 'firebase/firestore';
-import { Task } from '~~/@types/task';
+import { doc, getDoc, getFirestore, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
 
 import { Item } from '~/@types/item';
+
 export default defineNuxtPlugin(() => ({
   provide: {
     // 初期化・書き込みリーダーで生成された乱数をDBに保存する(IDと日付)
     async registerCardId(itemId: string) {
       try {
-        await addDoc(collection(getFirestore(), 'items', itemId), { init_at: new Date(), id: itemId });
+        await setDoc(doc(getFirestore(), 'items', itemId), { init_at: new Date(), id: itemId });
       } catch (error) {
         alert(error);
         throw new Error(error);
@@ -19,7 +19,7 @@ export default defineNuxtPlugin(() => ({
     async registerItem(item: Item) {
       try {
         console.log({ item });
-        console.log(item.id)
+        console.log(item.id);
         const washingtonRef = doc(getFirestore(), 'items', item.id);
         await updateDoc(washingtonRef, { ...item });
         console.log('ok');
