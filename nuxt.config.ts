@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from "nuxt";
+import { defineNuxtConfig } from 'nuxt';
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -10,10 +10,22 @@ export default defineNuxtConfig({
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
   },
-  nitro: {
-    preset: "vercel",
+  app: {
+    head: {
+      title: 'cocoro-to-classi',
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/lp/favicon.png' }],
+      meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+      script: [
+        {
+          src: "https://static.line-scdn.net/liff/edge/2/sdk.js",
+        },
+      ],
+    },
   },
-  css: ["@/assets/css/tailwind.css"],
+  nitro: {
+    preset: 'vercel',
+  },
+  css: ['@/assets/css/tailwind.css'],
   // 参考:https://std9.jp/articles/01fq14pxsp4r6nbyzp2txj46ac
   build: {
     postcss: {
