@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { v4 as uuidv4 } from 'uuid';
 
-  const URL_BASE = "https://liff.line.me/1657500508-Mvd69BKj/item?id=";
+  const URL_BASE = "https://liff.line.me/1657500508-Mvd69BKj/item/";
   const doesOverwrite = ref(false);
   let isReading = false;
   const isNFCAvailable = ref(false);
