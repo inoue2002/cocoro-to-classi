@@ -2,9 +2,11 @@
 import { defineNuxtPlugin } from '#app';
 import { LiffMockPlugin } from '@line/liff-mock';
 
+import { LineUser } from '~~/@types/lineUser';
+
 export default defineNuxtPlugin(() => ({
   provide: {
-    async liffInit(liffId: string) {
+    async liffInit(liffId: string): Promise<LineUser> {
       console.log('初期化を始めます', liffId);
       try {
         // ローカル環境
@@ -31,7 +33,7 @@ export default defineNuxtPlugin(() => ({
       } catch (err) {
         // eslint-disable-next-line
         console.error(err);
-        return {};
+        return { userId: '0000000000000000', statusMessage: 'エラーが発生しました', displayName: 'Error' };
       }
     },
   },
