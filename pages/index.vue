@@ -1,9 +1,21 @@
 <script setup lang="ts">
-onMounted(async () => {
-  // ユーザーがログインしていない場合はログインページへ遷移、LPページを作成する場合はこの処理をなくす
-  await useNuxtApp().$existCurrentUser();
-});
+  const isNFCAvailable = ref(false);
+  // const serialNumber = ref(0);
+  // const message = ref();
+  onMounted(async () => {
+    isNFCAvailable.value = "NDEFReader" in window;
+    if (!isNFCAvailable.value) return;
+    const reader = new NDEFReader();
+    await reader.scan();
+    reader.addEventListener("error", () => {
+      console.log("error");
+    });
+    reader.addEventListener("reading", (event) => {
+      console.log(event);
+    })
+  });
 </script>
 <template>
-  <div>This page is LP</div>
+  <div>{{isNFCAvailable ? "Web NFC Availble" : "Web NFC Unavailable"}}</div>
+
 </template>
