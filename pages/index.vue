@@ -23,14 +23,23 @@
     reader.addEventListener("error", () => {
       console.log("Error");
     });
-    reader.addEventListener("reading", (event) => {
-      console.log(event);
+    reader.addEventListener("reading", ({message}) => {
+      console.log(message.records[0]);
     })
   }
 </script>
 <template>
   <div>
     <div>{{isNFCAvailable ? "Web NFC Availble" : "Web NFC Unavailable"}}</div>
-    <button @click="NFCOnScan">Scan</button>
+    <button class="scan" @click="NFCOnScan">Scan</button>
   </div>
 </template>
+
+<style scoped>
+.scan {
+  margin: 5px;
+  padding: 10px;
+  background: #eaeaea;
+  border-radius: 5px;
+}
+</style>
