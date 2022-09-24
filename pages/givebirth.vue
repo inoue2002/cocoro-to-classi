@@ -25,14 +25,18 @@
       const firstRecord = message.records[0];
       let targetId = "";
       if (!firstRecord) {
-        targetId = uuidv4();
-      } else {
-        const dataView: DataView = firstRecord.data;
-        const decoder: TextDecoder = new TextDecoder("utf-8");
-        const strDecoded: string = decoder.decode(dataView.buffer);
-        targetId = strDecoded;
+        targetURL.value = `${URL_BASE}${uuidv4()}`;
+        try {
+          reader.write(targetURL.value);
+        } catch(err) {
+          console.log(err);
+        }
+        return;
       }
-      targetURL.value = `${URL_BASE}${targetId}`;
+      const dataView: DataView = firstRecord.data;
+      const decoder: TextDecoder = new TextDecoder("utf-8");
+      const strDecoded: string = decoder.decode(dataView.buffer);
+      targetURL.value = strDecoded;
     });
   }
 </script>
