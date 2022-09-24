@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '#app';
 
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, Timestamp, updateDoc } from 'firebase/firestore';
 import { Task } from '~~/@types/task';
 
 import { Item } from '~/@types/item';
@@ -30,14 +30,24 @@ export default defineNuxtPlugin(() => ({
     // 初期化・書き込みリーダーで生成された乱数をDBに保存する(IDと日付)
     async registerCardId(itemId: string) {
       try {
-        await setDoc(doc(getFirestore(), 'items/', itemId), { init_at: new Date(), id: itemId });
+        await addDoc(collection(getFirestore(), 'items', itemId), { init_at: new Date(), id: itemId });
       } catch (error) {
         alert(error);
         throw new Error(error);
       }
     },
     // ユーザーが初めてカードにアクセスした時、カードに設定情報を書き込む
-    async registerItem() {},
+    async registerItem(item: Item) {
+      try {
+        console.log({ item });
+        console.log(item.id)
+        const washingtonRef = doc(getFirestore(), 'items', item.id);
+        await updateDoc(washingtonRef, { ...item });
+        console.log('ok');
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // カードの情報を取得する（単一）
     async getItem(itemId: string): Promise<Item> {
       const docRef = doc(getFirestore(), 'items', itemId);
@@ -50,20 +60,6 @@ export default defineNuxtPlugin(() => ({
         console.log('No such document!');
         return undefined;
       }
-      // const item: Item = {
-      //   id: String(itemId),
-      //   init_at: new Date(),
-      //   register_at: new Date(),
-      //   name: 'シーツ',
-      //   imageUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
-      //   message: 'シーツは2階の棚の上',
-      //   authorUser: {
-      //     displayName: 'ようかん',
-      //     userId: 'zzzzzzzzzzz',
-      //     statusMessage: '元気です',
-      //     pictureUrl: 'https://www.gstatic.com/pantheon/images/welcome/supercloud.svg',
-      //   },
-      // };
     },
     // ユーザーの登録したカード情報を全て取得する（一覧）
     getItemList(userId: string): Item[] {
