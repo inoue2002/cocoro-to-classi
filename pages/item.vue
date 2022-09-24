@@ -33,11 +33,7 @@ onMounted(async () => {
 });
 
 const onSpeak = (name: string, message: string) => {
-  uttr.text = `このアイテムは${name}だよ。`;
-  window.speechSynthesis.speak(uttr);
-  uttr.text = `メモを読み上げるよ。`;
-  window.speechSynthesis.speak(uttr);
-  uttr.text = message;
+  uttr.text = `このアイテムは${name}だよ。メモを読み上げるよ。${message}`;
   window.speechSynthesis.speak(uttr);
 };
 </script>
