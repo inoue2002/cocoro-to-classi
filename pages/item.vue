@@ -21,6 +21,13 @@ onMounted(async () => {
 <template>
   <div>
     <div v-if="lineUser" class="root">こんにちは{{ lineUser.displayName }}さん</div>
+    <div v-if="item">
+    {{item.name}}
+    {{item.init_at}}
+    {{item.register_at}}
+    {{item.message}}
+    {{item.authorUserId}}
+    </div>
   </div>
 </template>
 
