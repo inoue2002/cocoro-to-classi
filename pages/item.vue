@@ -6,7 +6,7 @@ import { LineUser } from '~/@types/lineUser';
 // パラメーターの取得
 const route = useRoute();
 
-const router = useRouter()
+const router = useRouter();
 
 // todo - エラーハンドリングをやる
 const itemId = route.query.id as string;
@@ -32,7 +32,7 @@ onMounted(async () => {
   }
   if (!itemData.register_at) {
     console.log('このタグはまだ登録されていません');
-    router.push(`/register?id=${itemId}`)
+    router.push(`/register?id=${itemId}`);
   } else {
     item.value = itemData;
     // eslint-disable-next-line no-useless-return
@@ -55,8 +55,8 @@ const onSpeak = (name: string, message: string) => {
     <div v-if="item">
       <p>id : {{ itemId }}</p>
       <p>タイトル：{{ item.name }}</p>
-      <p>タグ初期化日： {{ item.init_at.toDate().toLocaleDateString() }}</p>
-      <p>タグ設定日： {{ item.register_at.toDate().toLocaleDateString() }}</p>
+      <p v-if="item.init_at">タグ初期化日： {{ item.init_at.toDate().toLocaleDateString() }}</p>
+      <p v-if="item.register_at">タグ設定日： {{ item.register_at.toDate().toLocaleDateString() }}</p>
       <p>メッセージ： {{ item.message }}</p>
       <p>設定者： {{ item.authorUser.displayName }}</p>
       <div class="img-container">
