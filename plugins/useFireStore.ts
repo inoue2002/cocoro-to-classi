@@ -6,27 +6,6 @@ import { Task } from '~~/@types/task';
 import { Item } from '~/@types/item';
 export default defineNuxtPlugin(() => ({
   provide: {
-    async addTask(name: string): Promise<string> {
-      try {
-        const docRef = collection(getFirestore(), `users/${useAuth().loginUser.value.uid}/tasks`);
-        const res = await addDoc(docRef, { name });
-        // eslint-disable-next-line no-console
-        console.log('Document written with ID: ', docRef.id);
-        return res.id;
-      } catch (e) {
-        throw new Error('Failed to add task to DB');
-      }
-    },
-    async getTask() {
-      const tasks: Task[] = [];
-      const snapShots = await getDocs(collection(getFirestore(), 'users', useAuth().loginUser.value.uid, 'tasks'));
-      snapShots.forEach((s) => {
-        // なんらかの処理
-        const task = s.data();
-        tasks.push({ name: task.name, id: s.id });
-      });
-      return tasks;
-    },
     // 初期化・書き込みリーダーで生成された乱数をDBに保存する(IDと日付)
     async registerCardId(itemId: string) {
       try {
