@@ -22,6 +22,8 @@ const router = useRouter();
 onMounted(async () => {
   lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
   console.log(lineUser.value.userId);
+  // todo - 今入っているデータを確認する
+  // todo - すでにデータが入っている場合はすぐにitem/にリダイレクトさせる
 });
 
 // todo - 画像を指定すると、firestorageに保存してくれる機能の実装
