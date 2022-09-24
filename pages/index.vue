@@ -25,7 +25,7 @@ const toScan = () => {
 };
 
 const toItemDetailPage = (itemId: string) => {
-  router.push(`/item?id=${itemId}`);
+  router.push(`/item/${itemId}`);
 };
 </script>
 <template>

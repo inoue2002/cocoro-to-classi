@@ -47,7 +47,7 @@ const submit = async () => {
   };
   await useNuxtApp().$registerItem(item);
   console.log('登録しました');
-  router.push(`/item?id=${itemId}`);
+  router.push(`/item/${itemId}`);
 };
 
 const changeImageFile = (e: any) => {
