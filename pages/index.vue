@@ -24,7 +24,14 @@
       console.log("Error");
     });
     reader.addEventListener("reading", ({message}) => {
-      console.log(message.records[0]);
+      const firstRecord = message.records[0];
+      if (!firstRecord) {
+        throw new Error("The first record does not exist");
+      }
+      const dataView: DataView = firstRecord.data;
+      const decoder: TextDecoder = new TextDecoder("utf-8");
+      const strDecoded: string = decoder.decode(dataView.buffer);
+      console.log(strDecoded);
     })
   }
 </script>
