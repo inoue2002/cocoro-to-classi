@@ -11,7 +11,7 @@ onMounted(async () => {
 
 const toScan = () => {
   const liff = (window as any).liff
-  liff.openWindow({ url: 'cocoro-to-classi.vercel.app/scan', external: true });
+  liff.openWindow({ url: 'https://cocoro-to-classi.vercel.app/scan', external: true });
   console.log('起動しました')
 };
 </script>
