@@ -9,6 +9,7 @@
     console.log("Mounted");
     isNFCAvailable.value = "NDEFReader" in window;
     try {
+      // @ts-ignore
       reader = new NDEFReader();
     } catch(err) {
       console.log(err);
@@ -24,12 +25,17 @@
     reader.addEventListener("reading", ({message}) => {
       const firstRecord = message.records[0];
       if (!firstRecord) {
-        targetURL.value = `${URL_BASE}${uuidv4()}`;
+        const itemId = uuidv4()
+        targetURL.value = `${URL_BASE}${itemId}`;
         try {
+          // 新しくタグに書き込む
           reader.write({
             records: [{ recordType: "url", data: targetURL.value }]
           });
+          // データーベースに記録する
+          useNuxtApp().$registerCardId(itemId)
         } catch(err) {
+          alert(err)
           console.log(err);
         }
         return;
