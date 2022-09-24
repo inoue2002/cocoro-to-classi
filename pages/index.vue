@@ -3,28 +3,22 @@
 
 import { Ref } from 'vue';
 import { Item } from '~/@types/item';
+import { LineUser } from '~~/@types/lineUser';
 
 const device = ref('');
 const NODE_ENV = process.env.NODE_ENV;
 
 const router = useRouter();
 
-const displayName = ref('');
-const userId = ref('');
-const statusMessage = ref('');
-const user = reactive({ displayName, userId, statusMessage });
+const lineUser: Ref<LineUser> = ref();
 
 const itemList: Ref<Item[]> = ref([]);
 
 onMounted(async () => {
   device.value = (window as any).liff.getOS();
-  const lineUser = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
-  displayName.value = lineUser.displayName;
-  userId.value = lineUser.userId;
-  statusMessage.value = lineUser.statusMessage;
-
+  lineUser.value = await useNuxtApp().$liffInit('1657500508-Mvd69BKj');
   // ユーザーが登録したデータを配列で取得（item[]）
-  itemList.value = useNuxtApp().$registerCardId(user.userId);
+  itemList.value = useNuxtApp().$registerCardId(lineUser.value.userId);
 });
 
 const toScan = () => {
@@ -38,7 +32,7 @@ const toItemDetailPage = (itemId: string) => {
 </script>
 <template>
   <div>
-    <div class="root">こんにちは{{ user.displayName }}さん</div>
+    <div v-if="lineUser" class="root">こんにちは{{ lineUser.displayName }}さん</div>
 
     <!-- 連続リーダーモード / ローカル or アンドロイド のみで表示される -->
     <button v-if="device === 'android' || NODE_ENV === 'development'" @click="toScan">連続リーダーモード</button>
